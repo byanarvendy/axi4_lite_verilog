@@ -1,0 +1,56 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Tue Mar 18 05:48:49 2025
+[*]
+[dumpfile] "/home/byanarvendy/Downloads/axi4_lite/sim/axi4_lite_master_slave_tb.vcd"
+[dumpfile_mtime] "Tue Mar 18 05:45:14 2025"
+[dumpfile_size] 6165
+[savefile] "/home/byanarvendy/Downloads/axi4_lite/sim/all.gtkw"
+[timestart] 62
+[size] 1920 1016
+[pos] -101 -101
+*-4.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] axi4_lite_master_slave_tb.
+[sst_width] 233
+[signals_width] 142
+[sst_expanded] 1
+[sst_vpaned_height] 280
+@28
+axi4_lite_master_slave_tb.iCLK
+axi4_lite_master_slave_tb.iRST
+@22
+[color] 2
+axi4_lite_master_slave_tb.master.m_AWADDR[31:0]
+@28
+[color] 2
+axi4_lite_master_slave_tb.master.m_AWVALID
+axi4_lite_master_slave_tb.slave.s_AWREADY
+@22
+[color] 2
+axi4_lite_master_slave_tb.master.m_WDATA[31:0]
+@28
+[color] 2
+axi4_lite_master_slave_tb.master.m_WVALID
+@22
+[color] 2
+axi4_lite_master_slave_tb.master.m_WSTRB[3:0]
+@28
+axi4_lite_master_slave_tb.slave.s_WREADY
+axi4_lite_master_slave_tb.slave.s_BVALID
+[color] 2
+axi4_lite_master_slave_tb.master.m_BREADY
+@22
+[color] 2
+axi4_lite_master_slave_tb.master.m_ARADDR[31:0]
+@28
+[color] 2
+axi4_lite_master_slave_tb.master.m_ARVALID
+axi4_lite_master_slave_tb.slave.s_ARREADY
+[color] 2
+axi4_lite_master_slave_tb.master.m_RREADY
+@22
+axi4_lite_master_slave_tb.slave.s_RDATA[31:0]
+@29
+axi4_lite_master_slave_tb.slave.s_RVALID
+[pattern_trace] 1
+[pattern_trace] 0
