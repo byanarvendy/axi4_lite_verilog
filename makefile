@@ -3,10 +3,10 @@ dir_sim = sim
 dir_tb  = tb
 dir_syn = syn
 
-top_level = axi4_lite_master_slave
+# top_level = axi4_lite_master_slave
 # top_level = axi4_lite_slave
 # top_level = axi4_lite_master
-# top_level = trial
+top_level = axi4_lite_interconnect
 
 top_level_tb = $(top_level)_tb
 simulation_tb = $(dir_sim)/$(top_level_tb)

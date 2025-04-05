@@ -2,6 +2,7 @@
 
 `include "rtl/axi4_lite_master.v"
 `include "rtl/axi4_lite_slave.v"
+`include "mem/memory.v"
 
 module axi4_lite_master_slave_tb;
     reg                 iCLK, iRST;
@@ -10,6 +11,9 @@ module axi4_lite_master_slave_tb;
     reg     [3:0]       iWRITE_STRB;
     reg     [31:0]      iWRITE_ADDR, iWRITE_DATA, iREAD_ADDR;
     wire    [31:0]      oREAD_DATA;
+
+    wire                CE, RD, WR;
+    wire    [31:0]      READ, WRITE, ADDR;
 
     wire                AWREADY, AWVALID;
     wire    [2:0]       AWPROT;
@@ -31,57 +35,43 @@ module axi4_lite_master_slave_tb;
     wire    [31:0]      RDATA;
 
     axi4_lite_master master (
-        .iCLK(iCLK),
-        .iRST(iRST),
-        .iWRITE_START(iWRITE_START),
-        .iREAD_START(iREAD_START),
-        .iWRITE_STRB(iWRITE_STRB),
-        .iWRITE_ADDR(iWRITE_ADDR),
-        .iWRITE_DATA(iWRITE_DATA),
-        .iREAD_ADDR(iREAD_ADDR),
-        .m_AWREADY(AWREADY),
-        .m_AWVALID(AWVALID),
-        .m_AWPROT(AWPROT),
-        .m_AWADDR(AWADDR),
-        .m_WREADY(WREADY),
-        .m_WVALID(WVALID),
-        .m_WSTRB(WSTRB),
-        .m_WDATA(WDATA),
-        .m_BVALID(BVALID),
-        .m_BRESP(BRESP),
-        .m_BREADY(BREADY),
-        .m_ARREADY(ARREADY),
-        .m_ARVALID(ARVALID),
-        .m_ARPROT(ARPROT),
-        .m_ARADDR(ARADDR),
-        .m_RVALID(RVALID),
-        .m_RREADY(RREADY),
-        .m_RRESP(RRESP),
-        .m_RDATA(RDATA)
+        .iCLK(iCLK), .iRST(iRST),
+
+        .iWRITE_START(iWRITE_START), .iREAD_START(iREAD_START), .iWRITE_STRB(iWRITE_STRB), .iWRITE_ADDR(iWRITE_ADDR), .iWRITE_DATA(iWRITE_DATA), .iREAD_ADDR(iREAD_ADDR),
+        
+        /* write */
+        .m_AWREADY(AWREADY), .m_AWVALID(AWVALID), .m_AWPROT(AWPROT), .m_AWADDR(AWADDR),
+        .m_WREADY(WREADY), .m_WVALID(WVALID), .m_WSTRB(WSTRB), .m_WDATA(WDATA),
+        .m_BVALID(BVALID), .m_BRESP(BRESP), .m_BREADY(BREADY),
+
+        /* read */
+        .m_ARREADY(ARREADY), .m_ARVALID(ARVALID), .m_ARPROT(ARPROT), .m_ARADDR(ARADDR),
+        .m_RVALID(RVALID), .m_RREADY(RREADY), .m_RRESP(RRESP), .m_RDATA(RDATA)
     );
     
     axi4_lite_slave slave (
+        .iCLK(iCLK), .iRST(iRST),
+
+        /* interfaces */
+        .iREAD_DATA(READ),
+        .iCE(CE), .iRD(RD), .iWR(WR),
+        .oADDR(ADDR), .oWRITE_DATA(WRITE),
+
+        /* write */
+        .s_AWVALID(AWVALID), .s_AWPROT(AWPROT), .s_AWADDR(AWADDR), .s_AWREADY(AWREADY),
+        .s_WVALID(WVALID), .s_WSTRB(WSTRB), .s_WDATA(WDATA), .s_WREADY(WREADY),
+        .s_BREADY(BREADY), .s_BVALID(BVALID), .s_BRESP(BRESP),
+
+        /* read */
+        .s_ARVALID(ARVALID), .s_ARPROT(ARPROT), .s_ARADDR(ARADDR), .s_ARREADY(ARREADY),
+        .s_RREADY(RREADY), .s_RVALID(RVALID), .s_RDATA(RDATA), .s_RRESP(RRESP)
+    );
+
+    memory mem(
         .iCLK(iCLK),
-        .iRST(iRST),
-        .s_AWVALID(AWVALID),
-        .s_AWPROT(AWPROT),
-        .s_AWADDR(AWADDR),
-        .s_AWREADY(AWREADY),
-        .s_WVALID(WVALID),
-        .s_WSTRB(WSTRB),
-        .s_WDATA(WDATA),
-        .s_WREADY(WREADY),
-        .s_BREADY(BREADY),
-        .s_BVALID(BVALID),
-        .s_BRESP(BRESP),
-        .s_ARVALID(ARVALID),
-        .s_ARPROT(ARPROT),
-        .s_ARADDR(ARADDR),
-        .s_ARREADY(ARREADY),
-        .s_RREADY(RREADY),
-        .s_RVALID(RVALID),
-        .s_RDATA(RDATA),
-        .s_RRESP(RRESP)
+        .CE(CE), .RD(RD), .WR(WR),
+        .iADDR(ADDR), .iWDATA(WRITE),
+        .oDATA(READ)	
     );
     
     assign oREAD_DATA = RDATA;
@@ -99,6 +89,9 @@ module axi4_lite_master_slave_tb;
         $dumpvars(1, slave.s_AWVALID, slave.s_AWREADY, slave.s_AWADDR, slave.s_WVALID, slave.s_WREADY, slave.s_WDATA, slave.s_WSTRB, slave.s_BVALID, slave.s_BREADY, slave.s_BRESP);
         $dumpvars(1, iREAD_START, iREAD_ADDR, master.m_ARVALID, master.m_ARREADY, master.m_ARADDR, master.m_RVALID, master.m_RREADY, master.m_RDATA, master.m_RRESP);
         $dumpvars(1, slave.s_ARVALID, slave.s_ARREADY, slave.s_ARADDR, slave.s_RVALID, slave.s_RREADY, slave.s_RDATA);
+        
+        $dumpvars(1, slave.iREAD_DATA, slave.oADDR, slave.oWRITE_DATA);
+        $dumpvars(0, mem);
         
         
         iRST          = 1'b0;
@@ -120,6 +113,7 @@ module axi4_lite_master_slave_tb;
             iWRITE_START    = 1'b0;
             iWRITE_ADDR     = 32'h0;
             iWRITE_DATA     = 32'h0;
+
         #20;
             iWRITE_START    = 1'b1;
             iWRITE_ADDR     = 15;
@@ -146,6 +140,17 @@ module axi4_lite_master_slave_tb;
         #20;
             iREAD_START     = 1'b0;
             iREAD_ADDR      = 32'h0;
+        
+        #20;
+            iWRITE_START    = 1'b1;
+            iWRITE_ADDR     = 32'h1000_0020;
+            iWRITE_DATA     = 32'h0001_2345;
+            iWRITE_STRB     = 4'b1111;
+
+        #20;
+            iWRITE_START    = 1'b0;
+            iWRITE_ADDR     = 32'h0;
+            iWRITE_DATA     = 32'h0;
 
         #400;
         $finish;

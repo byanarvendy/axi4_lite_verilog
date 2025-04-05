@@ -1,6 +1,14 @@
 module axi4_lite_slave (
     input               iCLK, iRST,
 
+    /* interfaces */
+    input       [31:0]  iREAD_DATA,
+    output              iCE,
+    output              iRD,
+    output              iWR,
+    output      [31:0]  oADDR,
+    output      [31:0]  oWRITE_DATA,
+
     /* write address channel */
     input               s_AWVALID,
     input       [2:0]   s_AWPROT,
@@ -31,12 +39,14 @@ module axi4_lite_slave (
     output  reg [1:0]   s_RRESP
 );
 
-    reg [31:0] mem [0:255];
-    initial begin
-        $readmemh("mem/memory_rom_init.hex", mem, 0, 255);
-    end
-
+    reg [31:0] write_addr;
     reg [31:0] read_addr;
+
+    assign oADDR        = (s_AWVALID) ? s_AWADDR : read_addr;
+    assign oWRITE_DATA  = s_WDATA;
+    assign iCE          = 1'b1;
+    assign iWR          = s_AWVALID & s_WVALID;
+    assign iRD          = s_ARVALID;
 
     /* write transaction */
     always @(posedge iCLK or negedge iRST) begin
@@ -49,15 +59,13 @@ module axi4_lite_slave (
             s_AWREADY   <= 1'b0;
             s_WREADY    <= 1'b0;
 
-            if (s_AWVALID && !s_AWREADY) begin
+            if (s_AWVALID && s_WVALID && !s_AWREADY && !s_WREADY) begin
                 s_AWREADY   <= 1'b1;
-            end
-            if (s_WVALID && !s_WREADY) begin
                 s_WREADY    <= 1'b1;
             end
 
             if (s_AWREADY && s_WREADY && s_AWVALID && s_WVALID) begin
-                mem[s_AWADDR] <= s_WDATA;
+                write_addr  <= s_AWADDR;
                 s_BRESP     <= 2'b00;
                 s_BVALID    <= 1'b1;
             end
@@ -87,13 +95,15 @@ module axi4_lite_slave (
 
             if (s_ARREADY && !s_RVALID) begin
                 s_RVALID    <= 1'b1;
-                s_RDATA     <= mem[read_addr];
+                s_RDATA     <= iREAD_DATA;
                 s_RRESP     <= 2'b00; // OKAY response
             end
 
             if (s_RVALID && s_RREADY) begin
                 s_RVALID    <= 1'b0;
             end
+
+            if (!s_ARREADY && !s_RVALID && !s_ARVALID) s_RDATA <= 32'h0;
         end
     end
 

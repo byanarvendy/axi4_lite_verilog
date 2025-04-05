@@ -1,7 +1,7 @@
 module axi4_lite_master (
     input               iCLK, iRST,
 
-    /* input */
+    /* interfaces */
     input               iWRITE_START,
     input               iREAD_START,
     input       [3:0]   iWRITE_STRB,
@@ -65,7 +65,7 @@ module axi4_lite_master (
             end
 
             if (m_BVALID && m_BREADY) begin
-                m_BREADY    <= 1'b0;
+                m_BREADY    <= 1'b0; 
             end
         end
     end
@@ -76,7 +76,7 @@ module axi4_lite_master (
             m_ARVALID   <= 1'b0;
             m_RREADY    <= 1'b0;
         end else begin
-            if (iREAD_START && !m_ARVALID) begin
+            if (iREAD_START && !m_ARVALID && !m_RREADY) begin
                 m_ARVALID   <= 1'b1;
                 m_RREADY    <= 1'b1;
             end

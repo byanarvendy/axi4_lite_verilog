@@ -1,0 +1,78 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Tue Mar 25 17:51:07 2025
+[*]
+[dumpfile] "/home/byanarvendy/Downloads/skripsi/ver/axi4_lite test_interconnect/sim/axi4_lite_interconnect_tb.vcd"
+[dumpfile_mtime] "Tue Mar 25 17:50:47 2025"
+[dumpfile_size] 10451
+[savefile] "/home/byanarvendy/Downloads/skripsi/ver/axi4_lite test_interconnect/sim/interconnect_write.gtkw"
+[timestart] 0
+[size] 1920 1016
+[pos] -1 -1
+*-4.489956 49 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] axi4_lite_interconnect_tb.
+[sst_width] 233
+[signals_width] 196
+[sst_expanded] 1
+[sst_vpaned_height] 280
+@28
+axi4_lite_interconnect_tb.iCLK
+axi4_lite_interconnect_tb.iRST
+@200
+-MASTER
+@22
+axi4_lite_interconnect_tb.m_AWADDR[31:0]
+@200
+-MASTER
+@28
+axi4_lite_interconnect_tb.m_AWVALID
+@200
+-SLAVE
+@28
+[color] 3
+axi4_lite_interconnect_tb.s0_AWREADY
+@29
+[color] 2
+axi4_lite_interconnect_tb.s1_AWREADY
+@200
+-MASTER
+@22
+axi4_lite_interconnect_tb.m_WDATA[31:0]
+@200
+-MASTER
+@28
+axi4_lite_interconnect_tb.m_WVALID
+@200
+-MASTER
+@22
+axi4_lite_interconnect_tb.m_WSTRB[3:0]
+@200
+-SLAVE
+@28
+[color] 3
+axi4_lite_interconnect_tb.s0_WREADY
+@29
+[color] 2
+axi4_lite_interconnect_tb.s1_WREADY
+@200
+-SLAVE
+@28
+[color] 3
+axi4_lite_interconnect_tb.s0_BRESP[1:0]
+@29
+[color] 2
+axi4_lite_interconnect_tb.s1_BRESP[1:0]
+@200
+-SLAVE
+@28
+[color] 3
+axi4_lite_interconnect_tb.s0_BVALID
+@29
+[color] 2
+axi4_lite_interconnect_tb.s1_BVALID
+@200
+-MASTER
+@28
+axi4_lite_interconnect_tb.m_BREADY
+[pattern_trace] 1
+[pattern_trace] 0

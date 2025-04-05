@@ -1,18 +1,18 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Tue Mar 18 05:48:49 2025
+[*] Fri Mar 21 04:38:03 2025
 [*]
 [dumpfile] "/home/byanarvendy/Downloads/axi4_lite/sim/axi4_lite_master_slave_tb.vcd"
-[dumpfile_mtime] "Tue Mar 18 05:45:14 2025"
-[dumpfile_size] 6165
+[dumpfile_mtime] "Fri Mar 21 04:36:34 2025"
+[dumpfile_size] 7555
 [savefile] "/home/byanarvendy/Downloads/axi4_lite/sim/all.gtkw"
-[timestart] 62
+[timestart] 0
 [size] 1920 1016
-[pos] -101 -101
-*-4.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -1 -1
+*-4.000000 115 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] axi4_lite_master_slave_tb.
 [sst_width] 233
-[signals_width] 142
+[signals_width] 182
 [sst_expanded] 1
 [sst_vpaned_height] 280
 @28
@@ -50,7 +50,16 @@ axi4_lite_master_slave_tb.slave.s_ARREADY
 axi4_lite_master_slave_tb.master.m_RREADY
 @22
 axi4_lite_master_slave_tb.slave.s_RDATA[31:0]
-@29
+@28
 axi4_lite_master_slave_tb.slave.s_RVALID
+@24
+axi4_lite_master_slave_tb.mem.iADDR[31:0]
+@28
+axi4_lite_master_slave_tb.mem.CE
+axi4_lite_master_slave_tb.mem.RD
+axi4_lite_master_slave_tb.mem.WR
+@22
+axi4_lite_master_slave_tb.mem.iWDATA[31:0]
+axi4_lite_master_slave_tb.mem.oDATA[31:0]
 [pattern_trace] 1
 [pattern_trace] 0
